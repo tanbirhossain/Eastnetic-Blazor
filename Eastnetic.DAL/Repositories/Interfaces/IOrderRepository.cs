@@ -9,6 +9,8 @@ namespace Eastnetic.DAL.Repositories.Interfaces
 {
     public interface IOrderRepository
     {
-        public Task<List<Order>> GetOrders();
+        Task<Order> DeleteById(long id);
+        Task<List<Order>> GetOrders();
+        Task<Order> SaveOrder(Order order);
     }
 }

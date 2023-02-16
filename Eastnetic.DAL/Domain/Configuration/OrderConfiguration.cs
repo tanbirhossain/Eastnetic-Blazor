@@ -17,9 +17,6 @@ namespace Eastnetic.DAL.Domain.Configuration
                 .HasMaxLength(100);
             builder.Property(p => p.State)
              .HasMaxLength(100);
-           
-
-
 
         }
     }

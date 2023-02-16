@@ -21,12 +21,16 @@ namespace Eastnetic.BLL.IOC
 
             #region Services
             services.AddTransient<IOrderService,OrderService>();
+            services.AddTransient<IWindowService,WindowService>();
+            services.AddTransient<IElementService,ElementService>();
 
             #endregion
 
 
             #region Repositories
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IWindowRepository, WindowRepository>();
+            services.AddTransient<IElementRepository, ElementRepository>();
             services.AddDbContext<EastneticDbContext>();
             #endregion
         }

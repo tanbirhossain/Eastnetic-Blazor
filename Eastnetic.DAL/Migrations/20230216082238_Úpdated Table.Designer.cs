@@ -3,6 +3,7 @@ using Eastnetic.DAL.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eastnetic.DAL.Migrations
 {
     [DbContext(typeof(EastneticDbContext))]
-    partial class EastneticDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230216082238_Úpdated Table")]
+    partial class ÚpdatedTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,13 +34,11 @@ namespace Eastnetic.DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -60,8 +61,7 @@ namespace Eastnetic.DAL.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Width")
                         .HasColumnType("int");
@@ -86,8 +86,7 @@ namespace Eastnetic.DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
@@ -111,8 +110,7 @@ namespace Eastnetic.DAL.Migrations
                         .WithMany("SubElements")
                         .HasForeignKey("WindowId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_SubElement_Window");
+                        .IsRequired();
 
                     b.Navigation("Window");
                 });
@@ -123,8 +121,7 @@ namespace Eastnetic.DAL.Migrations
                         .WithMany("Windows")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Window_Order");
+                        .IsRequired();
 
                     b.Navigation("Order");
                 });

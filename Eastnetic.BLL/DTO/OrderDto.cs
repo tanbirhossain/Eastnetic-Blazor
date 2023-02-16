@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Eastnetic.DAL.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,4 +13,5 @@ namespace Eastnetic.BLL.DTO
         public string Name { get; set; }
         public string State { get; set; }
     }
+   
 }

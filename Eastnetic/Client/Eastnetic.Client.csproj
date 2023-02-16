@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Eastnetic.BLL\Eastnetic.BLL.csproj" />
     <ProjectReference Include="..\Shared\Eastnetic.Shared.csproj" />
   </ItemGroup>
 

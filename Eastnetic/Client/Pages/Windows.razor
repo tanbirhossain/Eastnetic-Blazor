@@ -1,0 +1,59 @@
+﻿@page "/windows"
+@using Eastnetic.BLL.DTO;
+@using Eastnetic.Shared
+@using Eastnetic.BLL
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Window List</PageTitle>
+
+<p>
+    <a href="/addwindow">Create New</a>
+</p>
+@if (windows == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>QuantityOfWindows</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var window in windows)
+            {
+                <tr>
+                    <td>@window.Id</td>
+                    <td>@window.Name</td>
+                    <td>@window.QuantityOfWindows</td>
+                    <td><button class="btn btn-danger" @onclick="@(() => DeleteOrder(@window.Id))">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<WindowDto>? windows;
+
+    protected override async Task OnInitializedAsync()
+    {
+        windows = await Http.GetFromJsonAsync<List<WindowDto>>("Window/GetWindows");
+    }
+    async Task DeleteOrder(long id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            await Http.GetFromJsonAsync<object>($"Window/DeleteWindowById?Id={id}");
+            await OnInitializedAsync();
+            // Delete!
+        }
+    }
+}

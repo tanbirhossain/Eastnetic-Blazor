@@ -8,8 +8,14 @@ namespace Eastnetic.DAL.Domain.Entities
 {
     public class Order
     {
-            public long Id { get; set; }
-            public string Name { get; set; }
-            public string State { get; set; }
+        public Order()
+        {
+            this.Windows = new HashSet<Window>();
+        }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string State { get; set; }
+
+        public virtual ICollection<Window> Windows { get; set; }
     }
 }

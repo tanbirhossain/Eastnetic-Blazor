@@ -7,35 +7,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Eastnetic.DAL.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class WindowRepository : IWindowRepository
     {
         private readonly EastneticDbContext _context;
 
-        public OrderRepository(EastneticDbContext context)
+        public WindowRepository(EastneticDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Order>> GetOrders()
+        public async Task<List<Window>> GetWindows()
         {
-            var result = await _context.Orders.ToListAsync();
+            var result = await _context.Windows.ToListAsync();
             return result;
         }
-        public async Task<Order> SaveOrder(Order order)
+        public async Task<Window> SaveWindow(Window window)
         {
-            var result = await _context.Orders.AddAsync(order);
+            var result = await _context.Windows.AddAsync(window);
             await _context.SaveChangesAsync();
             return result.Entity;
         }
-        public async Task<Order> DeleteById(long id)
+        public async Task<Window> DeleteById(long id)
         {
-            var result = await _context.Orders.Where(e => e.Id == id).FirstOrDefaultAsync();
-            _context.Orders.Remove(result);
+            var result = await _context.Windows.Where(e => e.Id == id).FirstOrDefaultAsync();
+            _context.Windows.Remove(result);
             await _context.SaveChangesAsync();
             return result;
         }
-    }
+    } 
 }

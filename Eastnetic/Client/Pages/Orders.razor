@@ -1,0 +1,59 @@
+﻿@page "/orders"
+@using Eastnetic.BLL.DTO;
+@using Eastnetic.Shared
+@using Eastnetic.BLL
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Order List</PageTitle>
+
+<p>
+    <a href="/addorder">Create New</a>
+</p>
+@if (orders == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>State</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Name</td>
+                    <td>@order.State</td>
+                    <td><button class="btn btn-danger" @onclick="@(() => DeleteOrder(@order.Id))">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<OrderDto>? orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await Http.GetFromJsonAsync<List<OrderDto>>("order/GetOrders");
+    }
+    async Task DeleteOrder(long id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            await Http.GetFromJsonAsync<object>($"order/DeleteOrderById?Id={id}");
+            await OnInitializedAsync();
+            // Delete!
+        }
+    }
+}
