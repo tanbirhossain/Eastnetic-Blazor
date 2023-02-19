@@ -17,7 +17,12 @@ namespace Eastnetic.DAL
             try
             {
                 context.Database.EnsureCreated();
+                // Look for any orders.
+                if (context.Orders.Any())
+                {
+                    return;   // DB has been seeded
 
+                }
                 // orders
                 context.Orders.Add(
                     new Order
