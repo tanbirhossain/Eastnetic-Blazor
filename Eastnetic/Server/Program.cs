@@ -1,4 +1,5 @@
 using Eastnetic.BLL.IOC;
+using Eastnetic.DAL;
 using Eastnetic.DAL.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -45,5 +46,15 @@ app.UseRouting();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
-
+// seed database
+using (var scope = app.Services.CreateScope())
+    try
+    {
+        var scopedContext = scope.ServiceProvider.GetRequiredService<EastneticDbContext>();
+        DbInitializer.Initialize(scopedContext);
+    }
+    catch
+    {
+        throw;
+    }
 app.Run();
