@@ -20,6 +20,7 @@ namespace Eastnetic.BLL.Services
             {
                 Id = x.Id,
                 WindowId = x.WindowId,
+                WindowName = x.Window.Name,
                 Element = x.Element,
                 Type = x.Type,
                 Width = x.Width,

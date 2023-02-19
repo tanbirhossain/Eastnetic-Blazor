@@ -1,6 +1,5 @@
 ﻿@page "/orders"
 @using Eastnetic.BLL.DTO;
-@using Eastnetic.Shared
 @using Eastnetic.BLL
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
@@ -8,7 +7,7 @@
 <PageTitle>Order List</PageTitle>
 
 <p>
-    <a href="/addorder">Create New</a>
+    <a href="/addorder" class="btn btn-primary">Create New</a>
 </p>
 @if (orders == null)
 {
@@ -16,7 +15,7 @@
 }
 else
 {
-    <table class="table">
+    <table class="table table-striped table-bordered table-sm">
         <thead>
             <tr>
                 <th>Id</th>

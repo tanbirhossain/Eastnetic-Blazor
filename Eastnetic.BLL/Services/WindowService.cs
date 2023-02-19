@@ -25,8 +25,9 @@ namespace Eastnetic.BLL.Services
             {
                 Id = x.Id,
                 OrderId = x.OrderId,
+                OrderName = x.Order.Name,
                 Name = x.Name,
-                TotalSubElements = x.TotalSubElements,
+                TotalSubElements = x.SubElements.Count,
                 QuantityOfWindows = x.QuantityOfWindows
 
             }).ToList();
@@ -39,7 +40,6 @@ namespace Eastnetic.BLL.Services
                 Id = dto.Id,
                 OrderId = dto.OrderId,
                 Name = dto.Name,
-                TotalSubElements = dto.TotalSubElements,
                 QuantityOfWindows = dto.QuantityOfWindows
             };
             var result = await _windowRepository.SaveWindow(window);

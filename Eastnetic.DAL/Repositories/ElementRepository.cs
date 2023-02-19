@@ -16,7 +16,7 @@ namespace Eastnetic.DAL.Repositories
 
         public async Task<List<SubElement>> GetElements()
         {
-            var result = await _context.SubElements.ToListAsync();
+            var result = await _context.SubElements.Include(e=>e.Window).ToListAsync();
             return result;
         }
         public async Task<SubElement> SaveElement(SubElement order)

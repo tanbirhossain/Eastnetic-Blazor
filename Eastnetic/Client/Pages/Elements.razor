@@ -1,0 +1,65 @@
+﻿@page "/elements"
+@using Eastnetic.BLL.DTO;
+@using Eastnetic.BLL
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Window List</PageTitle>
+
+<p>
+    <a href="/addelement" class="btn btn-primary">Create New</a>
+</p>
+@if (elements == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Window</th>
+                <th>Element</th>
+                <th>Type</th>
+                <th>Width</th>
+                <th>Height</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var element in elements)
+            {
+                <tr>
+                    <td>@element.Id</td>
+                    <td>@element.WindowName</td>
+                    <td>@element.Element</td>
+                    <td>@element.Type</td>
+                    <td>@element.Width</td>
+                    <td>@element.Height</td>
+                    <td><button class="btn btn-danger" @onclick="@(() => DeleteOrder(@element.Id))">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<SubElementDto>? elements;
+
+    protected override async Task OnInitializedAsync()
+    {
+        elements = await Http.GetFromJsonAsync<List<SubElementDto>>("Element/GetElements");
+    }
+
+    async Task DeleteOrder(long id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            await Http.GetFromJsonAsync<object>($"Element/DeleteElementById?Id={id}");
+            await OnInitializedAsync();
+            // Delete!
+        }
+    }
+}

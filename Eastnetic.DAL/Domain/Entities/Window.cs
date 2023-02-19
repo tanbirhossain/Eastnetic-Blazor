@@ -11,12 +11,12 @@ namespace Eastnetic.DAL.Domain.Entities
         public  Window()
         {
             this.SubElements = new HashSet<SubElement>();
+            this.Order = new Order();
         }
         public long Id { get; set; }
         public long OrderId { get; set; }
         public string Name { get; set; }
         public int QuantityOfWindows { get; set; }
-        public int TotalSubElements { get; set; }
         public virtual Order Order { get; set; }
         public virtual ICollection<SubElement> SubElements { get; set; }
     }

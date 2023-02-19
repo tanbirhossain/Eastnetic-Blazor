@@ -22,7 +22,7 @@ namespace Eastnetic.DAL.Repositories
 
         public async Task<List<Window>> GetWindows()
         {
-            var result = await _context.Windows.ToListAsync();
+            var result = await _context.Windows.Include(e=>e.Order).Include(e=>e.SubElements).ToListAsync();
             return result;
         }
         public async Task<Window> SaveWindow(Window window)

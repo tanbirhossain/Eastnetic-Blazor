@@ -1,0 +1,66 @@
+﻿@page "/addelement"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<PageTitle>Element</PageTitle>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="@model" OnValidSubmit="@Save">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="Name" class="control-label">Window</label>
+                <select class="form-control selectpicker" @bind="model.WindowId">
+                    @*<option>--select--</option>*@
+                    @foreach (var item in windows)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Element</label>
+                <input for="Name" class="form-control" @bind-value="model.Element" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Department" class="control-label">Type</label>
+                <input asp-for="Department" class="form-control" @bind-value="model.Type" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Department" class="control-label">Width</label>
+                <input asp-for="Department" class="form-control" @bind-value="model.Width" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Department" class="control-label">Height</label>
+                <input asp-for="Department" class="form-control" @bind-value="model.Height" />
+            </div>
+
+
+            <div class="form-group mt-2">
+                <button type="button" class="btn btn-primary" onclick="@(async () => await Save())">Save</button>
+                <button class="btn btn-secondary" onclick="@(cancel)">Cancel</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    SubElementDto model = new SubElementDto();
+    private List<WindowDto>? windows;
+
+    protected override async Task OnInitializedAsync()
+    {
+        windows = await Http.GetFromJsonAsync<List<WindowDto>>("Window/GetWindows");
+    }
+    protected async Task Save()
+    {
+        var response = await Http.PostAsJsonAsync("Element/SaveElement", model);
+        NavigationManager.NavigateTo("elements");
+    }
+    void cancel()
+    {
+        NavigationManager.NavigateTo("elements");
+    }
+}
