@@ -1,10 +1,14 @@
 using Eastnetic.BLL.IOC;
 using Eastnetic.DAL.Domain;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();

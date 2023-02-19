@@ -11,7 +11,7 @@ namespace Eastnetic.BLL.DTO
         public string OrderName { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
+        //[Required]
         public int QuantityOfWindows { get; set; }
         public int TotalSubElements { get; set; }
     }

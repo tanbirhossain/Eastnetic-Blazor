@@ -11,7 +11,7 @@
             <ValidationSummary />
             <div class="form-group">
                 <label for="Name" class="control-label">Order</label>
-                <select class="form-control selectpicker" @bind="model.OrderId">
+                <select class="form-control" @bind="model.OrderId">
                     @*<option>--select--</option>*@
                     @foreach (var item in orders)
                     {
@@ -45,7 +45,7 @@
 
 @code {
     WindowDto model = new WindowDto();
-    private List<OrderDto>? orders;
+    private List<OrderDto>? orders = new List<OrderDto>();
 
     protected override async Task OnInitializedAsync()
     {

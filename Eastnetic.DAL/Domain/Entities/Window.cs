@@ -11,7 +11,6 @@ namespace Eastnetic.DAL.Domain.Entities
         public  Window()
         {
             this.SubElements = new HashSet<SubElement>();
-            this.Order = new Order();
         }
         public long Id { get; set; }
         public long OrderId { get; set; }
