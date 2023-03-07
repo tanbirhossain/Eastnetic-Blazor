@@ -20,6 +20,39 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+
+
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+
+        function generatePdf(divName) {
+
+
+            var element = document.getElementById(divName);
+            html2pdf(element, {
+                //margin: 0,
+                //jsPDF: { unit: 'pt', format: 'dl', orientation: 'portrait' }
+                jsPDF: { format: 'a4' },
+                //html2canvas: { scale: 3, y: 0, scrollY: 0 },
+                //html2canvas: { width: 50, height: 50 },
+                //html2canvas: { scale: 1, width: $(window).width() },
+                //jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            })
+                .set({ pagebreak: { mode: 'avoid-all', before: '#page2el' } })
+                .from(element).save('account_statement.pdf');
+        }
+    </script>
 </body>
 
 </html>
